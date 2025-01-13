@@ -140,10 +140,10 @@ services:
       - SPRING_DATA_REDIS_SSL_ENABLED=false
       - HMPPS_SQS_USE_WEB_TOKEN=false
       - ASSESS_RISKS_AND_NEEDS_API_BASE_URL=http://wiremock:8080/
-      - ASSESS_RISKS_AND_NEEDS_API_ID=${API_CLIENT_CREDENTIALS_ID:-hmpps-assess-risks-and-needs-client}
+      - ASSESS_RISKS_AND_NEEDS_API_ID=${API_CLIENT_CREDENTIALS_ID:-hmpps-community-payback-api-client}
       - ASSESS_RISKS_AND_NEEDS_API_CLIENT_SECRET=${API_CLIENT_CREDENTIALS_SECRET:-clientsecret}
       - DELIUS_INTEGRATION_BASE_URL=http://wiremock:8080
-      - DELIUS_INTEGRATION_CLIENT_ID=${API_CLIENT_CREDENTIALS_ID:-hmpps-assess-risks-and-needs-client}
+      - DELIUS_INTEGRATION_CLIENT_ID=${API_CLIENT_CREDENTIALS_ID:-hmpps-community-payback-api-client}
       - DELIUS_INTEGRATION_CLIENT_SECRET=${API_CLIENT_CREDENTIALS_SECRET:-clientsecret}
 
   community-payback-assessment-ui:
@@ -159,9 +159,9 @@ services:
       - OAUTH_EXTERNAL_URL=${OAUTH_EXTERNAL_URL:-http://hmpps-auth:9090/auth}
       - HMPPS_ASSESSMENT_API_URL=http://community-payback-assessment-api:8080
       - PDF_CONVERTER_ENDPOINT=http://gotenberg:3000/forms/chromium/convert/html
-      - API_CLIENT_ID=${UI_CLIENT_CREDENTIALS_ID:-hmpps-assess-risks-and-needs-client}
+      - API_CLIENT_ID=${UI_CLIENT_CREDENTIALS_ID:-hmpps-community-payback-api-client}
       - API_CLIENT_SECRET=${UI_CLIENT_CREDENTIALS_SECRET:-clientsecret}
-      - AUTH_CLIENT_ID=${UI_AUTHORIZATION_CODE_ID:-use-of-force-client}
+      - AUTH_CLIENT_ID=${UI_AUTHORIZATION_CODE_ID:-hmpps-community-payback-ui-client}
       - AUTH_CLIENT_SECRET=${UI_AUTHORIZATION_CODE_SECRET:-clientsecret}
       - OAUTH_VERIFY_TOKEN=false
       - SHOW_DETAILED_ERRORS=true
