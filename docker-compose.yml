@@ -150,6 +150,10 @@ services:
     image: quay.io/hmpps/hmpps-risk-assessment-ui:${UI_IMAGE_TAG:-latest}
     networks:
       - hmpps
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://community-payback-assessment-ui:3000/health"]
+      interval: 5s
+      retries: 60
     environment:
       - OAUTH_ENDPOINT_URL=${OAUTH_ENDPOINT_URL:-http://hmpps-auth:9090/auth}
       - OAUTH_EXTERNAL_URL=${OAUTH_EXTERNAL_URL:-http://hmpps-auth:9090/auth}

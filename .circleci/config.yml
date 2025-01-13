@@ -65,18 +65,18 @@ jobs:
       - run:
           name: Run the end-to-end tests
           command: make e2e-ci
-      #      - run:
-      #          name: Store container logs
-      #          command: make save-logs OUTPUT_LOGS_DIR=~/docker-logs PROJECT_NAME="hmpps-assess-risks-and-needs-test"
-      #          when: on_fail
+      - run:
+          name: Store container logs
+          command: make save-logs OUTPUT_LOGS_DIR=~/docker-logs PROJECT_NAME="hmpps-community-payback-assessment-e2e-tests-test"
+          when: on_fail
       - store_test_results:
           path: test_results
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
-#      - store_artifacts:
-#          path: ~/docker-logs
+      - store_artifacts:
+          path: ~/docker-logs
 
 workflows:
   version: 2

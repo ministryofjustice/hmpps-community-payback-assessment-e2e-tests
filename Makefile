@@ -1,5 +1,5 @@
 SHELL = '/bin/bash'
-PROJECT_NAME = hmpps-arn-acceptance-tests
+PROJECT_NAME = hmpps-community-payback-assessment-e2e-tests
 TEST_COMPOSE_FILES = -f docker-compose.yml -f docker-compose.test.yml
 LOCAL_COMPOSE_FILES = -f docker-compose.yml -f docker-compose.local.yml
 export COMPOSE_PROJECT_NAME=${PROJECT_NAME}
@@ -38,3 +38,11 @@ e2e-ci: ## Run the end-to-end tests in parallel in a headless browser. Used in C
 	#cat tmp_specs.txt
 	#rm -R -f cypress/reports && mkdir cypress/reports
 	#docker compose ${TEST_COMPOSE_FILES} -p ${PROJECT_NAME}-test run --rm cypress --headless -b edge -c baseUrl=${BASE_URL_CI} -s "$$(<tmp_specs.txt)"
+
+save-logs: ## Saves docker container logs in a directory defined by OUTPUT_LOGS_DIR=
+	docker system info
+	mkdir -p ${OUTPUT_LOGS_DIR}
+	docker logs ${PROJECT_NAME}-community-payback-assessment-api-1 > ${OUTPUT_LOGS_DIR}/community-payback-assessment-api.log
+	docker logs ${PROJECT_NAME}-community-payback-assessment-ui-1 > ${OUTPUT_LOGS_DIR}/community-payback-assessment-ui.log
+	docker logs ${PROJECT_NAME}-hmpps-auth-1 > ${OUTPUT_LOGS_DIR}/hmpps-auth.log
+	docker logs ${PROJECT_NAME}-wiremock-1 > ${OUTPUT_LOGS_DIR}/wiremock.log
