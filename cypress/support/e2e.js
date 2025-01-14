@@ -29,7 +29,7 @@ Cypress.Commands.overwrite('compareSnapshot', (originalFn, ...args) => {
         return new Cypress.Promise((resolve, reject) => {
           setTimeout(() => {
             // hide the CRN
-            $app.find('.key-details-bar__other-details > dd:first-of-type').css('visibility', 'hidden')
+            $app.find('.key-details-bar__other-details > dd:first-of-type').html('XXXXXX')
             resolve()
             // add a very small delay to wait for the elements to be there, but you should
             // make sure your test already handles this
