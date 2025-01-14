@@ -6,6 +6,7 @@ const { createEsbuildPlugin } = require('@badeball/cypress-cucumber-preprocessor
 const { lighthouse, pa11y, prepareAudit } = require('cypress-audit')
 
 module.exports = defineConfig({
+  chromeWebSecurity: false,
   execTimeout: 15000,
   taskTimeout: 15000,
   watchForFileChanges: false,
@@ -23,6 +24,7 @@ module.exports = defineConfig({
   },
   video: false,
   e2e: {
+    testIsolation: true,
     specPattern: '**/*.feature',
     excludeSpecPattern: ['**/__snapshots__/*', '**/__image_snapshots__/*'],
     async setupNodeEvents(on, config) {
