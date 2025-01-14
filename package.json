@@ -1,0 +1,42 @@
+{
+  "name": "hmpps-arn",
+  "version": "0.0.2",
+  "main": "index.js",
+  "author": "Srikanth Malepati <srikanth.malepati@digital.justice.gov.uk>",
+  "scripts": {
+    "lint": "eslint . --cache --max-warnings 0",
+    "lint:fix": "eslint . --cache --max-warnings 0 --fix"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-cypress": "^3.6.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-no-only-tests": "^3.3.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.4.2"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": false,
+    "step_definitions": "cypress/support/step_definitions/",
+    "cucumberJson": {
+      "generate": true,
+      "outputFolder": "cypress/reports/cucumber-json",
+      "filePrefix": "",
+      "fileSuffix": ".cucumber"
+    }
+  },
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^20.1.2",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
+    "cypress": "^12.17.4",
+    "cypress-audit": "^1.1.0",
+    "cypress-axe": "1.5.0",
+    "cypress-circleci-reporter": "^0.3.0",
+    "cypress-multi-reporters": "^1.6.4",
+    "cypress-plugin-tab": "1.0.5",
+    "cypress-terminal-report": "^5.3.12",
+    "cypress-wait-until": "1.7.2"
+  }
+}
