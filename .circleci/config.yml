@@ -77,6 +77,8 @@ jobs:
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
+          path: cypress/snapshots/diff
+      - store_artifacts:
           path: ~/docker-logs
 
 workflows:

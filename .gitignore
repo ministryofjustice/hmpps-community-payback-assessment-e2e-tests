@@ -8,6 +8,7 @@ allure.properties
 cypress/reports/
 cypress/logs/
 cypress/screenshots/
+cypress/snapshots/diff/
 cypress/videos/
 jmeter.log
 multi-reporter-config.json

@@ -4,6 +4,7 @@ const { addCucumberPreprocessorPlugin } = require('@badeball/cypress-cucumber-pr
 // eslint-disable-next-line import/no-unresolved
 const { createEsbuildPlugin } = require('@badeball/cypress-cucumber-preprocessor/esbuild')
 const { lighthouse, pa11y, prepareAudit } = require('cypress-audit')
+const { configureVisualRegression } = require('cypress-visual-regression')
 
 module.exports = defineConfig({
   chromeWebSecurity: false,
@@ -29,6 +30,7 @@ module.exports = defineConfig({
     excludeSpecPattern: ['**/__snapshots__/*', '**/__image_snapshots__/*'],
     async setupNodeEvents(on, config) {
       await addCucumberPreprocessorPlugin(on, config)
+      configureVisualRegression(on)
 
       on(
         'file:preprocessor',
@@ -65,7 +67,7 @@ module.exports = defineConfig({
     },
   },
   env: {
-    // allure: true,
+    visualRegressionType: 'regression',
     pluginVisualRegressionUpdateImages: true,
     pluginVisualRegressionDiffConfig: { threshold: 0.01 },
     AUTH_URL: 'http://localhost:9091/auth/oauth/token?grant_type=client_credentials&username=foobar',

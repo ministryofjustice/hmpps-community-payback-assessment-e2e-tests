@@ -2,6 +2,10 @@ const { When } = require('@badeball/cypress-cucumber-preprocessor')
 const PdfPreviewPage = require('../../../integration/pages/upwPages/pdf-preview/pdfPreviewPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
 
+When('I check the visual regression for {string}', (id) => {
+  cy.compareSnapshot(id)
+})
+
 When('I see output {string} Page', pageName => {
   cy.url().should('include', pageName)
   cy.get(':nth-child(3) > .govuk-heading-l').contains('Supervised individual')

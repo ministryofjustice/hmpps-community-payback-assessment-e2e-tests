@@ -31,6 +31,11 @@ e2e: up ## Run the end-to-end tests locally in the Cypress app. Override the def
 	npx cypress install
 	npx cypress open -c baseUrl=$(BASE_URL)
 
+e2e-base-snapshots: up ## Generates base snapshots for visual regression tests
+	npm i
+	npx cypress install
+	npx cypress run --headless -b chrome -c baseUrl=$(BASE_URL) -e visualRegressionType=base -s "cypress/integration/features/UPW/UPWPdfPreviewContent.feature"
+
 BASE_URL_CI ?= "http://community-payback-assessment-ui:3000"
 e2e-ci: ## Run the end-to-end tests in parallel in a headless browser. Used in CI. Override the default base URL with BASE_URL_CI=...
 	circleci tests glob "cypress/integration/features/**/*.feature" | circleci tests split --split-by=timings --verbose | paste -sd ',' > tmp_specs.txt

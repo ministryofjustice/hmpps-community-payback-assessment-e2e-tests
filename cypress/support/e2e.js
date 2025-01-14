@@ -17,6 +17,31 @@ require('./commands')
 require('cypress-axe')
 require('cypress-plugin-tab')
 
+const { addCompareSnapshotCommand } = require('cypress-visual-regression/dist/command')
+addCompareSnapshotCommand()
+Cypress.Commands.overwrite('compareSnapshot', (originalFn, ...args) => {
+  return (
+    cy
+      // wait for content to be ready
+      .get('body')
+      // hide ignored elements
+      .then(($app) => {
+        return new Cypress.Promise((resolve, reject) => {
+          setTimeout(() => {
+            // hide the CRN
+            $app.find('.key-details-bar__other-details > dd:first-of-type').css('visibility', 'hidden')
+            resolve()
+            // add a very small delay to wait for the elements to be there, but you should
+            // make sure your test already handles this
+          }, 300)
+        })
+      })
+      .then(() => {
+        return originalFn(...args)
+      })
+  )
+})
+
 beforeEach(() => {
   cy.getCookies().then(cookies => {
     if (cookies.length > 1) {
