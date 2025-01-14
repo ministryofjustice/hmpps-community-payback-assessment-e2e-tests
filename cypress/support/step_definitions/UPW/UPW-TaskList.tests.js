@@ -7,17 +7,18 @@ const Common = require('../../../integration/pages/upwPages/common/common')
 const TaskListPage = require('../../../integration/pages/upwPages/taskList/taskListPage')
 
 Given('I login and navigate to UPW Task list page with CRN {string}', crn => {
+  ArnHomePage.signIn()
   const params = querystring.encode({
     crn,
     assessmentType: 'UPW',
     eventId: 1,
   })
   cy.visit(`${urls.startAssessment}?${params}`)
-  ArnHomePage.signIn()
   AreaSelectionPage.startAssessmentButton().click()
 })
 
 Given('I login and navigate to UPW Task list page with dataDriven CRN', () => {
+  ArnHomePage.signIn()
   const mycrn = Common.getLocalCrn()
   cy.wrap(mycrn).as('crn')
   cy.log(`CRN -> ${mycrn}`)
@@ -27,11 +28,11 @@ Given('I login and navigate to UPW Task list page with dataDriven CRN', () => {
     eventId: 1,
   })
   cy.visit(`${urls.startAssessment}?${params}`)
-  ArnHomePage.signIn()
   AreaSelectionPage.startAssessmentButton().click()
 })
 
 Given('I login and navigate to UPW Task list page with full dataDriven CRN', () => {
+  ArnHomePage.signIn()
   const mycrn = Common.getLocalCrn('Y')
   cy.wrap(mycrn).as('crn')
   cy.log(`CRN -> ${mycrn}`)
@@ -41,11 +42,11 @@ Given('I login and navigate to UPW Task list page with full dataDriven CRN', () 
     eventId: 1,
   })
   cy.visit(`${urls.startAssessment}?${params}`)
-  ArnHomePage.signIn()
   AreaSelectionPage.startAssessmentButton().click()
 })
 
 Given('I login and navigate to UPW Task list page with dataDriven CRN by injecting Axe', () => {
+  ArnHomePage.signIn()
   const mycrn = Common.getLocalCrn()
   cy.log(`CRN -> ${mycrn}`)
   const params = querystring.encode({
@@ -54,7 +55,6 @@ Given('I login and navigate to UPW Task list page with dataDriven CRN by injecti
     eventId: 1,
   })
   cy.visit(`${urls.startAssessment}?${params}`).injectAxe()
-  ArnHomePage.signIn()
   AreaSelectionPage.startAssessmentButton().click()
 })
 

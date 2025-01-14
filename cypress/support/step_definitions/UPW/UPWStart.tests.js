@@ -5,13 +5,13 @@ const urls = require('../../../fixtures/urls.json')
 const UPWStartPage = require('../../../integration/pages/upwPages/start/startPage')
 
 Given('I login and navigate to UPW Start Page with CRN {string}', crn => {
+  ArnHomePage.signIn()
   const params = querystring.encode({
     crn,
     assessmentType: 'UPW',
     eventId: 1,
   })
   cy.visit(`${urls.startAssessment}?${params}`)
-  ArnHomePage.signIn()
 })
 
 Then('I verify the offender does not have a PNC number', () => {
