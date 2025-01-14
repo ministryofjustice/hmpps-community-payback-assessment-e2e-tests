@@ -40,7 +40,7 @@ jobs:
     machine:
       image: ubuntu-2204:current
       resource_class: medium
-    parallelism: 3
+    parallelism: 2
     steps:
       - checkout
       - attach_workspace:
