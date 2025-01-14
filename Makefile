@@ -33,11 +33,9 @@ e2e: up ## Run the end-to-end tests locally in the Cypress app. Override the def
 
 BASE_URL_CI ?= "http://community-payback-assessment-ui:3000"
 e2e-ci: ## Run the end-to-end tests in parallel in a headless browser. Used in CI. Override the default base URL with BASE_URL_CI=...
-	docker compose ${TEST_COMPOSE_FILES} -p ${PROJECT_NAME}-test run --rm cypress --headless -b edge -c baseUrl=${BASE_URL_CI}
-	#circleci tests glob "cypress/integration/features/**/*.feature" | circleci tests split --split-by=timings --verbose | paste -sd ',' > tmp_specs.txt
-	#cat tmp_specs.txt
-	#rm -R -f cypress/reports && mkdir cypress/reports
-	#docker compose ${TEST_COMPOSE_FILES} -p ${PROJECT_NAME}-test run --rm cypress --headless -b edge -c baseUrl=${BASE_URL_CI} -s "$$(<tmp_specs.txt)"
+	circleci tests glob "cypress/integration/features/**/*.feature" | circleci tests split --split-by=timings --verbose | paste -sd ',' > tmp_specs.txt
+	cat tmp_specs.txt
+	docker compose ${TEST_COMPOSE_FILES} -p ${PROJECT_NAME}-test run --rm cypress --headless -b edge -c baseUrl=${BASE_URL_CI} -s "$$(<tmp_specs.txt)"
 
 save-logs: ## Saves docker container logs in a directory defined by OUTPUT_LOGS_DIR=
 	docker system info
