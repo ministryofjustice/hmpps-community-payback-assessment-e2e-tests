@@ -2,7 +2,7 @@ const { When } = require('@badeball/cypress-cucumber-preprocessor')
 const PdfPreviewPage = require('../../../integration/pages/upwPages/pdf-preview/pdfPreviewPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
 
-When('I check the visual regression for {string}', (id) => {
+When('I check the visual regression for {string}', id => {
   cy.compareSnapshot(id)
 })
 

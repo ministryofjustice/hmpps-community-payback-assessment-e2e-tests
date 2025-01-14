@@ -18,18 +18,21 @@ require('cypress-axe')
 require('cypress-plugin-tab')
 
 const { addCompareSnapshotCommand } = require('cypress-visual-regression/dist/command')
-addCompareSnapshotCommand()
+
+addCompareSnapshotCommand({
+  capture: 'fullPage',
+})
 Cypress.Commands.overwrite('compareSnapshot', (originalFn, ...args) => {
   return (
     cy
       // wait for content to be ready
       .get('body')
       // hide ignored elements
-      .then(($app) => {
-        return new Cypress.Promise((resolve, reject) => {
+      .then($app => {
+        return new Cypress.Promise((resolve, _reject) => {
           setTimeout(() => {
             // hide the CRN
-            $app.find('.key-details-bar__other-details > dd:first-of-type').html('XXXXXX')
+            $app.find('.key-details-bar__other-details > dd:first-of-type, tr#crn > td > p').html('XXXXXX')
             resolve()
             // add a very small delay to wait for the elements to be there, but you should
             // make sure your test already handles this

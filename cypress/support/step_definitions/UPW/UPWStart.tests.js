@@ -5,7 +5,7 @@ const urls = require('../../../fixtures/urls.json')
 const UPWStartPage = require('../../../integration/pages/upwPages/start/startPage')
 
 Given('I login and navigate to UPW Start Page with CRN {string}', crn => {
-  ArnHomePage.signIn()
+  ArnHomePage.signIn(crn)
   const params = querystring.encode({
     crn,
     assessmentType: 'UPW',
