@@ -5,7 +5,7 @@ const Common = require('../../../integration/pages/upwPages/common/common')
 When('I check the visual regression for {string}', id => {
   const disableVisualRegression = Cypress.env('DISABLE_VISUAL_REGRESSION')
   cy.log(`DISABLE_VISUAL_REGRESSION -> ${disableVisualRegression}`)
-  if (!Boolean(disableVisualRegression)) {
+  if (!disableVisualRegression) {
     cy.compareSnapshot(id)
   }
 })

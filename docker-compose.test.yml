@@ -1,9 +1,11 @@
 services:
   cypress:
-    image: quay.io/hmpps/hmpps-community-payback-assessment-e2e-tests:${APP_VERSION:-latest}
+    image: quay.io/hmpps/hmpps-community-payback-assessment-e2e-tests:${E2E_IMAGE_TAG:-latest}
     networks:
       - hmpps
     working_dir: /e2e
+    volumes:
+      - ./cypress:/e2e/cypress
     environment:
       CYPRESS_BASE_URL: http://community-payback-assessment-ui:3000
       CYPRESS_AUTH_URL: http://hmpps-auth:9090/auth/oauth/token?grant_type=client_credentials&username=foobar

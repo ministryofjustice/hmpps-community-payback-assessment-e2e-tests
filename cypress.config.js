@@ -33,17 +33,18 @@ module.exports = defineConfig({
     excludeSpecPattern: ['**/__snapshots__/*', '**/__image_snapshots__/*'],
     async setupNodeEvents(on, config) {
       on('before:browser:launch', (browser, launchOptions) => {
+        const options = { ...launchOptions }
         if (browser.family === 'chromium' && browser.name !== 'electron') {
-          launchOptions.args.push(`--window-size=${viewportWidth},${viewportHeight}`)
-          launchOptions.args.push('--force-device-scale-factor=1')
-          launchOptions.args.push('--incognito')
+          options.args.push(`--window-size=${viewportWidth},${viewportHeight}`)
+          options.args.push('--force-device-scale-factor=1')
+          options.args.push('--incognito')
         }
         if (browser.name === 'electron') {
-          launchOptions.preferences['width'] = viewportWidth
-          launchOptions.preferences['height'] = viewportHeight
+          options.preferences.width = viewportWidth
+          options.preferences.height = viewportHeight
         }
-        prepareAudit(launchOptions)
-        return launchOptions
+        prepareAudit(options)
+        return options
       })
 
       await addCucumberPreprocessorPlugin(on, config)
