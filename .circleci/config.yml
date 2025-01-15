@@ -40,7 +40,7 @@ jobs:
   e2e_test:
     machine:
       image: ubuntu-2204:current
-      resource_class: arm.medium
+      resource_class: medium
     parallelism: 2
     steps:
       - checkout
