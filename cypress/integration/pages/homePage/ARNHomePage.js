@@ -1,6 +1,6 @@
-const signIn = () => {
+const signIn = sessionId => {
   cy.session(
-    'bernard.beaks',
+    sessionId,
     () => {
       cy.visit('/')
 

@@ -1,5 +1,6 @@
 SHELL = '/bin/bash'
 PROJECT_NAME = hmpps-community-payback-assessment-e2e-tests
+DEV_COMPOSE_FILES = -f docker-compose.yml -f docker-compose.dev.yml
 TEST_COMPOSE_FILES = -f docker-compose.yml -f docker-compose.test.yml
 LOCAL_COMPOSE_FILES = -f docker-compose.yml -f docker-compose.local.yml
 export COMPOSE_PROJECT_NAME=${PROJECT_NAME}
@@ -20,7 +21,7 @@ down: ## Stops and removes all containers in the project.
 	make test-down
 
 test-up: pull ## Stands up a test environment.
-	docker compose ${TEST_COMPOSE_FILES} -p ${PROJECT_NAME}-test up community-payback-assessment-ui --wait --force-recreate
+	docker compose ${TEST_COMPOSE_FILES} -p ${PROJECT_NAME}-test up community-payback-assessment-ui --wait --no-recreate
 
 test-down: ## Stops and removes all of the test containers.
 	docker compose ${TEST_COMPOSE_FILES} -p ${PROJECT_NAME}-test down

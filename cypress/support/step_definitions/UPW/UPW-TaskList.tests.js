@@ -7,7 +7,7 @@ const Common = require('../../../integration/pages/upwPages/common/common')
 const TaskListPage = require('../../../integration/pages/upwPages/taskList/taskListPage')
 
 Given('I login and navigate to UPW Task list page with CRN {string}', crn => {
-  ArnHomePage.signIn()
+  ArnHomePage.signIn(crn)
   const params = querystring.encode({
     crn,
     assessmentType: 'UPW',
@@ -18,8 +18,8 @@ Given('I login and navigate to UPW Task list page with CRN {string}', crn => {
 })
 
 Given('I login and navigate to UPW Task list page with dataDriven CRN', () => {
-  ArnHomePage.signIn()
   const mycrn = Common.getLocalCrn()
+  ArnHomePage.signIn(mycrn)
   cy.wrap(mycrn).as('crn')
   cy.log(`CRN -> ${mycrn}`)
   const params = querystring.encode({
@@ -32,8 +32,8 @@ Given('I login and navigate to UPW Task list page with dataDriven CRN', () => {
 })
 
 Given('I login and navigate to UPW Task list page with full dataDriven CRN', () => {
-  ArnHomePage.signIn()
   const mycrn = Common.getLocalCrn('Y')
+  ArnHomePage.signIn(mycrn)
   cy.wrap(mycrn).as('crn')
   cy.log(`CRN -> ${mycrn}`)
   const params = querystring.encode({
@@ -46,8 +46,8 @@ Given('I login and navigate to UPW Task list page with full dataDriven CRN', () 
 })
 
 Given('I login and navigate to UPW Task list page with dataDriven CRN by injecting Axe', () => {
-  ArnHomePage.signIn()
   const mycrn = Common.getLocalCrn()
+  ArnHomePage.signIn(mycrn)
   cy.log(`CRN -> ${mycrn}`)
   const params = querystring.encode({
     crn: mycrn,
