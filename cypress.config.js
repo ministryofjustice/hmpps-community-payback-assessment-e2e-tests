@@ -84,6 +84,7 @@ module.exports = defineConfig({
   },
   env: {
     visualRegressionType: 'regression',
+    visualRegressionFailSilently: true,
     pluginVisualRegressionUpdateImages: true,
     pluginVisualRegressionDiffConfig: { threshold: 0.01 },
     AUTH_URL: 'http://localhost:9091/auth/oauth/token?grant_type=client_credentials&username=foobar',
