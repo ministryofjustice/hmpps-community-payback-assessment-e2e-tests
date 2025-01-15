@@ -3,9 +3,11 @@ const PdfPreviewPage = require('../../../integration/pages/upwPages/pdf-preview/
 const Common = require('../../../integration/pages/upwPages/common/common')
 
 When('I check the visual regression for {string}', id => {
-   if (Cypress.env('ENABLE_VISUAL_REGRESSION') !== 'false') {
-     cy.compareSnapshot(id)
-   }
+  const disableVisualRegression = Cypress.env('DISABLE_VISUAL_REGRESSION')
+  cy.log(`DISABLE_VISUAL_REGRESSION -> ${disableVisualRegression}`)
+  if (!Boolean(disableVisualRegression)) {
+    cy.compareSnapshot(id)
+  }
 })
 
 When('I see output {string} Page', pageName => {
