@@ -85,13 +85,14 @@ workflows:
           pipeline_id: << pipeline.id >>
           pipeline_number: << pipeline.number >>
           context: hmpps-common-vars
-      - e2e_test
+      - e2e_test:
+          requires:
+            - build_docker
       - hmpps/publish_docker:
           name: publish_docker
           publish_latest_tag: true
           context: hmpps-common-vars
           requires:
-            - build_docker
             - e2e_test
             - lint
           filters:
