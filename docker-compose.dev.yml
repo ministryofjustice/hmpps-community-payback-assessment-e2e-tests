@@ -1,8 +1,13 @@
 services:
   cypress:
-    image: quay.io/hmpps/hmpps-community-payback-assessment-e2e-tests:${APP_VERSION:-latest}
+    image: quay.io/hmpps/hmpps-community-payback-assessment-e2e-tests:local
+    build:
+      context: .
     networks:
       - hmpps
+    volumes:
+      - ./cypress:/e2e/cypress
+      - ./cypress.config.js:/e2e/cypress.config.js
     working_dir: /e2e
     environment:
       CYPRESS_BASE_URL: http://community-payback-assessment-ui:3000

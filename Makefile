@@ -1,5 +1,6 @@
 SHELL = '/bin/bash'
 PROJECT_NAME = hmpps-community-payback-assessment-e2e-tests
+DEV_COMPOSE_FILES = -f docker-compose.yml -f docker-compose.dev.yml
 TEST_COMPOSE_FILES = -f docker-compose.yml -f docker-compose.test.yml
 LOCAL_COMPOSE_FILES = -f docker-compose.yml -f docker-compose.local.yml
 export COMPOSE_PROJECT_NAME=${PROJECT_NAME}
@@ -29,18 +30,20 @@ BASE_URL ?= "http://localhost:3000"
 e2e: up ## Run the end-to-end tests locally in the Cypress app. Override the default base URL with BASE_URL=...
 	npm i
 	npx cypress install
-	npx cypress open -c baseUrl=$(BASE_URL)
+	npx cypress open -e ENABLE_VISUAL_REGRESSION=false -c baseUrl=$(BASE_URL)
 
-e2e-base-snapshots: up ## Generates the base snapshots for visual regression testing
-	npm i
-	npx cypress install
-	npx cypress run --headless -b chrome -c baseUrl=$(BASE_URL) -e visualRegressionType=base -s "cypress/integration/features/UPW/UPWPdfPreviewContent.feature"
+VISUAL_REGRESSION_TEST ?= "cypress/integration/features/UPW/UPWPdfPreviewContent.feature"
+e2e-base-snapshots: test-up ## Generates the base snapshots for visual regression testing
+	docker compose ${DEV_COMPOSE_FILES} -p ${PROJECT_NAME}-test run --rm cypress --headless -b electron -c baseUrl=${BASE_URL_CI} -e visualRegressionType=base -s ${VISUAL_REGRESSION_TEST}
+
+e2e-visual-regression: test-up ## Runs the visual regression tests
+	docker compose ${DEV_COMPOSE_FILES} -p ${PROJECT_NAME}-test run --rm cypress --headless -b electron -c baseUrl=${BASE_URL_CI} -s ${VISUAL_REGRESSION_TEST}
 
 BASE_URL_CI ?= "http://community-payback-assessment-ui:3000"
 e2e-ci: ## Run the end-to-end tests in parallel in a headless browser. Used in CI. Override the default base URL with BASE_URL_CI=...
 	circleci tests glob "cypress/integration/features/**/*.feature" | circleci tests split --split-by=timings --verbose | paste -sd ',' > tmp_specs.txt
 	cat tmp_specs.txt
-	docker compose ${TEST_COMPOSE_FILES} -p ${PROJECT_NAME}-test run --rm cypress --headless -b chrome -c baseUrl=${BASE_URL_CI} -s "$$(<tmp_specs.txt)"
+	docker compose ${TEST_COMPOSE_FILES} -p ${PROJECT_NAME}-test run --rm cypress --headless -b electron -c baseUrl=${BASE_URL_CI} -s "$$(<tmp_specs.txt)"
 
 save-logs: ## Saves docker container logs in a directory defined by OUTPUT_LOGS_DIR=
 	docker system info
