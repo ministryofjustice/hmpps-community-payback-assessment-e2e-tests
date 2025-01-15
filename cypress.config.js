@@ -39,10 +39,6 @@ module.exports = defineConfig({
           options.args.push('--force-device-scale-factor=1')
           options.args.push('--incognito')
         }
-        if (browser.name === 'electron') {
-          options.preferences.width = viewportWidth
-          options.preferences.height = viewportHeight
-        }
         prepareAudit(options)
         return options
       })
